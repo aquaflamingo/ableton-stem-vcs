@@ -16,6 +16,10 @@ func main() {
 	args := os.Args[2:]
 	var err error
 	switch cmd {
+	case "init":
+		err = cmdInit(args)
+	case "rebuild":
+		err = cmdRebuild(args)
 	case "info":
 		err = cmdInfo(args)
 	case "check":
@@ -47,6 +51,8 @@ func usage() {
 
 usage: stem <command> [args]
 
+  init [dir]                adopt a project folder as a Stem repo (default .)
+  rebuild [dir]             regenerate the working .als from set/
   info <set.als>            print version, entity and track summary
   check <set.als>           parse and verify a byte-exact round trip
   decompress <in.als> <out.xml>

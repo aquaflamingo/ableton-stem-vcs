@@ -45,6 +45,50 @@ go test ./...
 The codec round-trips the real 5.1 MB Set byte-for-byte, and the canonical form is
 a fixed point. A 5.36 MB Set parses in ~21 ms (~255 MB/s).
 
+## Testing
+
+```
+go test ./...                       # unit tests
+go vet ./...                        # static checks
+go test ./internal/als -fuzz=FuzzParse -fuzztime=10s   # parser fuzz (no panics)
+go test ./internal/als -bench=. -run=xxx               # parse/gunzip benchmarks
+```
+
+Tests that need the real corpus Set skip automatically when
+`corpus/supreme-something/` is absent, so `go test ./...` passes on a fresh clone.
+The CLI `stem check <set.als>` is the end-to-end smoke test: it verifies the codec
+is byte-exact, implode is byte-exact, and the canonical form is a fixed point.
+
+## Using it on a real project
+
+`stem init` adopts an existing Live project folder in place (it never moves the
+files Live depends on):
+
+```
+cd "My Project"
+stem init                 # find the .als, explode to set/, write stem.toml + .gitignore
+git add -A && git commit -m "stem init"
+```
+
+What init does:
+- locates the single top-level `*.als` (errors if there are several),
+- explodes it into `set/` (`document.xml`, `set.json`, `tracks/`, `returns/`, `master.xml`),
+- writes `stem.toml` (project name, set file, min Live version),
+- writes `.gitignore` (ignores the `.als`, `Backup/`, `*.asd`) and `.gitattributes`,
+- runs `git init` + `git add` (it does not commit for you).
+
+After a clone, regenerate the working Set:
+
+```
+stem rebuild              # set/ -> <set_file>.als
+```
+
+The rebuilt `.als` is byte-identical to the original decompressed XML. Open it in
+Live to use it (Live acceptance is a Phase 0 experiment — see the plan).
+
+> The `.als` is a build artifact and is gitignored. A clone has the canonical tree
+> and needs `stem rebuild` to get a `.als` back.
+
 ## The core idea in three lines
 
 1. A `.als` is a ~10:1 gzip-compressed XML blob with many independent ID spaces and

@@ -10,7 +10,38 @@ import (
 	"github.com/aquaflamingo/stem/internal/als"
 	"github.com/aquaflamingo/stem/internal/canon"
 	"github.com/aquaflamingo/stem/internal/diff"
+	"github.com/aquaflamingo/stem/internal/repo"
 )
+
+func cmdInit(args []string) error {
+	dir := "."
+	if len(args) > 0 {
+		dir = args[0]
+	}
+	setFile, err := repo.Init(dir)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("initialised Stem repo in %s\n", dir)
+	fmt.Printf("adopted Set:  %s\n", filepath.Base(setFile))
+	fmt.Printf("canonical:    %s/ (exploded, ready to commit)\n", filepath.Join(dir, "set"))
+	fmt.Printf("wrote:        stem.toml, .gitignore, .gitattributes\n")
+	fmt.Printf("next:         git commit -m 'stem init'  (or 'stem rebuild' to restore the .als)\n")
+	return nil
+}
+
+func cmdRebuild(args []string) error {
+	dir := "."
+	if len(args) > 0 {
+		dir = args[0]
+	}
+	out, err := repo.Rebuild(dir)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("rebuilt %s\n", out)
+	return nil
+}
 
 func cmdInfo(args []string) error {
 	args = requireArgs(args, 1, "info <set.als>")
