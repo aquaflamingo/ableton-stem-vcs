@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ableton MajorVersion="5" MinorVersion="11.0_11300" SchemaChangeCount="7" Creator="Ableton Live 11.3.43">
+	<LiveSet>
+		<NextPointeeId Value="1200" />
+		<Tracks>
+			<AudioTrack Id="1">
+				<Name>
+					<EffectiveName Value="Drums" />
+				</Name>
+				<Devices>
+					<OriginalSimpler Id="0">
+						<Name>
+							<EffectiveName Value="Kick" />
+						</Name>
+					</OriginalSimpler>
+				</Devices>
+				<ClipSlotList>
+					<AudioClip Id="10">
+						<Name Value="Verse" />
+					</AudioClip>
+				</ClipSlotList>
+			</AudioTrack>
+			<MidiTrack Id="2">
+				<Name>
+					<EffectiveName Value="Bass" />
+				</Name>
+				<Devices>
+					<Eq8 Id="0">
+						<Name>
+							<EffectiveName Value="EQ Eight" />
+						</Name>
+					</Eq8>
+				</Devices>
+				<ClipSlotList>
+					<MidiClip Id="20">
+						<Name Value="Riff" />
+					</MidiClip>
+				</ClipSlotList>
+			</MidiTrack>
+			<ReturnTrack Id="3">
+				<Name>
+					<EffectiveName Value="A-Reverb" />
+				</Name>
+			</ReturnTrack>
+		</Tracks>
+		<MasterTrack>
+			<Name>
+				<EffectiveName Value="Master" />
+			</Name>
+			<Devices />
+		</MasterTrack>
+		<Tempo>
+			<Manual Value="120" />
+		</Tempo>
+	</LiveSet>
+</Ableton>

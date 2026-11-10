@@ -12,7 +12,9 @@ content-addressed storage, history, remotes, and review, and adds a lossless
 `.als` codec, a semantic diff engine, a whole-tree three-way merge, and asset /
 plugin handling.
 
-> Status: **design phase (v0.2)**. No implementation yet. See the docs below.
+> Status: **prototype (v0.2)**. The `.als` codec, canonical explode/implode, and a
+> semantic diff work end-to-end on a real Live 11.3.43 Set. No merge or git
+> integration yet. See [docs/SPIKE-2026-11.md](docs/SPIKE-2026-11.md).
 
 ## Documentation
 
@@ -23,9 +25,25 @@ plugin handling.
 | [docs/TDD-v0.2.md](docs/TDD-v0.2.md) | The revised design that applies the critique. |
 | [docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md) | Phased build plan, package layout, experiments. |
 | [docs/FORMAT-NOTES.md](docs/FORMAT-NOTES.md) | Measured facts from a real Live 11.3.43 Set. |
+| [docs/SPIKE-2026-11.md](docs/SPIKE-2026-11.md) | Base prototype: what was built, results, next steps. |
 
-Start with **CRITIQUE.md** for the review, then **TDD-v0.2.md** for the design, then
-**IMPLEMENTATION_PLAN.md** for how it gets built.
+Start with **CRITIQUE.md** for the review, then **TDD-v0.2.md** for the design,
+then **IMPLEMENTATION_PLAN.md** for how it gets built, then **SPIKE-2026-11.md**
+for what already runs.
+
+## Prototype
+
+```
+go build -o stem ./cmd/stem
+stem check "corpus/supreme-something/supreme something.als"   # byte-exact + fixed point
+stem explode "$SET" /tmp/canon
+stem implode /tmp/canon /tmp/rebuilt.als
+stem diff "$SET" "$SET2"
+go test ./...
+```
+
+The codec round-trips the real 5.1 MB Set byte-for-byte, and the canonical form is
+a fixed point. A 5.36 MB Set parses in ~21 ms (~255 MB/s).
 
 ## The core idea in three lines
 
