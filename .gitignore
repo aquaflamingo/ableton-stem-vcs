@@ -1,0 +1,29 @@
+# Live Sets are build artifacts, not tracked content (TDD v0.2 §5)
+*.als
+*.alp
+*.amxd
+*.asd
+
+# Live's own outputs
+Backup/
+Ableton Project Info/
+Samples/Processed/
+
+# Audio assets live in LFS, never raw-committed here
+*.wav
+*.aif
+*.aiff
+*.mp3
+*.flac
+*.m4a
+
+# Real corpus projects may be unreleased music; keep them out of history
+corpus/*/
+!corpus/README.md
+
+# Local Stem state
+.stem/
+
+# Build output
+/bin/
+/dist/
