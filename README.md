@@ -1,5 +1,8 @@
 # Stem
 
+THIS IS A CLAUDE 1 SHOT EXPERIMENT
+
+
 Version control and collaboration for Ableton Live projects.
 
 Stem treats a Live project folder the way Git treats a source tree. A Live Set
